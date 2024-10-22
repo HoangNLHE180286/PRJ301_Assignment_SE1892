@@ -26,9 +26,9 @@ public class CategoryDAO extends MyDAO {
             Category x;
 
             while (rs.next()) {
-                xCategoryID = rs.getInt("categoryID");
-                xCategoryName = rs.getString("categoryName");
-                xDescription = rs.getString("description");
+                xCategoryID = rs.getInt("CategoryID");
+                xCategoryName = rs.getString("CategoryName");
+                xDescription = rs.getString("Description");
 
                 x = new Category(xCategoryID, xCategoryName, xDescription);
                 l.add(x);
@@ -41,7 +41,7 @@ public class CategoryDAO extends MyDAO {
         return (l);
     }
 
-    public Category getCategoryByID(int categoryID) {
+    public Category getCategoryByID(int CategoryID) {
         String xCategoryName;
         String xDescription;
         Category x = new Category();
@@ -49,14 +49,14 @@ public class CategoryDAO extends MyDAO {
         
         try {
             ps = con.prepareStatement(xSql);
-            ps.setInt(1, categoryID);
+            ps.setInt(1, CategoryID);
             
             rs = ps.executeQuery();
             while (rs.next()) {
-                xCategoryName = rs.getString("categoryName");
-                xDescription = rs.getString("description");
+                xCategoryName = rs.getString("CategoryName");
+                xDescription = rs.getString("Description");
 
-                x = new Category(categoryID, xCategoryName, xDescription);
+                x = new Category(CategoryID, xCategoryName, xDescription);
             }
             rs.close();
             ps.close();
@@ -82,12 +82,12 @@ public class CategoryDAO extends MyDAO {
         }
     }
 
-    public void deleteCategory(int categoryID) {
-        xSql = "delete from Categories where categoryID = ?";
+    public void deleteCategory(int CategoryID) {
+        xSql = "delete from Categories where CategoryID = ?";
         
         try {
             ps = con.prepareStatement(xSql);
-            ps.setInt(1, categoryID);
+            ps.setInt(1, CategoryID);
             
             ps.executeUpdate();
             //con.commit();
@@ -97,7 +97,7 @@ public class CategoryDAO extends MyDAO {
         }
     }
 
-    public void updateCategory(int categoryID, Category x) {
+    public void updateCategory(int CategoryID, Category x) {
         xSql = "update Categories set CategoryName = ?, Description = ? where CategoryID = ?";
         
         try {

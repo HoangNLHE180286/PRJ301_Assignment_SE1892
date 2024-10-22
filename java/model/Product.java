@@ -15,16 +15,18 @@ public class Product {
     public String productName;
     public Category categoryID;
     public int unitInStock;
+    public String images;
     
     // constructor
     public Product() {
     }
 
-    public Product(int productID, String productName, Category categoryID, int unitInStock) {
+    public Product(int productID, String productName, Category categoryID, int unitInStock, String images) {
         this.productID = productID;
         this.productName = productName;
         this.categoryID = categoryID;
         this.unitInStock = unitInStock;
+        this.images = images;
     }
 
     // getters
@@ -42,6 +44,10 @@ public class Product {
 
     public int getUnitInStock() {
         return unitInStock;
+    }
+
+    public String getImages() {
+        return images;
     }
     
     // setters
@@ -61,6 +67,9 @@ public class Product {
         this.unitInStock = unitInStock;
     }
     
+    public void setImages(String images) {
+        this.images = images;
+    }
+	
     // others
-
 }

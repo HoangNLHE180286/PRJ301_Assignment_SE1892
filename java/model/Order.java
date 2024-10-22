@@ -14,26 +14,31 @@ import java.util.Date;
 public class Order {
     // attributes / fields
     public String orderID;
+    public UserAccount UserID;
     public Date orderDate;
     public Date requiredDate;
-    public double freight;
-    public Payment paymentID;    
+    public double freight;  
     
     // constructor
     public Order() {
     }
 
-    public Order(String orderID, Date orderDate, Date requiredDate, double freight, Payment paymentID) {
+    public Order(String orderID, UserAccount UserID, Date orderDate, Date requiredDate, double freight) {
         this.orderID = orderID;
+        this.UserID = UserID;
         this.orderDate = orderDate;
         this.requiredDate = requiredDate;
         this.freight = freight;
-        this.paymentID = paymentID;
     }
+
     
     // getters
     public String getOrderID() {
         return orderID;
+    }
+
+    public UserAccount getUserID() {
+        return UserID;
     }
 
     public Date getOrderDate() {
@@ -48,13 +53,13 @@ public class Order {
         return freight;
     }
 
-    public Payment getPaymentID() {
-        return paymentID;
-    }
-    
     // setters
     public void setOrderID(String orderID) {
         this.orderID = orderID;
+    }
+
+    public void setUserID(UserAccount UserID) {
+        this.UserID = UserID;
     }
 
     public void setOrderDate(Date orderDate) {
@@ -69,10 +74,6 @@ public class Order {
         this.freight = freight;
     }
 
-    public void setPaymentID(Payment paymentID) {
-        this.paymentID = paymentID;
-    }
-    
     // others
 
 }

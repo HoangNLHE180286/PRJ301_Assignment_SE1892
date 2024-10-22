@@ -24,16 +24,18 @@ public class ProductDAO extends MyDAO {
             String xProductName;
             Category xCategoryID;
             int xUnitInStock;
+            String xImages;
             Product x;
 
             while (rs.next()) {
-                xProductID = rs.getInt("productID");
-                xProductName = rs.getString("productName");
+                xProductID = rs.getInt("ProductID");
+                xProductName = rs.getString("ProductName");
                 CategoryDAO cd = new CategoryDAO();
-                xCategoryID = cd.getCategoryByID(rs.getInt("categoryID"));
-                xUnitInStock = rs.getInt("unitInStock");
+                xCategoryID = cd.getCategoryByID(rs.getInt("CategoryID"));
+                xUnitInStock = rs.getInt("UnitInStock");
+                xImages = rs.getString("Images");
 
-                x = new Product(xProductID, xProductName, xCategoryID, xUnitInStock);
+                x = new Product(xProductID, xProductName, xCategoryID, xUnitInStock, xImages);
             }
 
             rs.close();
@@ -48,6 +50,7 @@ public class ProductDAO extends MyDAO {
         String xProductName;
         Category xCategoryID;
         int xUnitInStock;
+        String xImages;
         Product x = new Product();
         xSql = "select * from Products where ProductID = ?";
 
@@ -56,12 +59,14 @@ public class ProductDAO extends MyDAO {
             ps.setInt(1, productID);
             rs = ps.executeQuery();
             while (rs.next()) {
-                xProductName = rs.getString("productName");
+                xProductName = rs.getString("ProductName");
                 CategoryDAO cd = new CategoryDAO();
-                xCategoryID = cd.getCategoryByID(rs.getInt("categoryID"));
-                xUnitInStock = rs.getInt("unitInStock");
+                xCategoryID = cd.getCategoryByID(rs.getInt("CategoryID"));
+                xUnitInStock = rs.getInt("UnitInStock");
+                 xImages = rs.getString("Images");
+                
 
-                x = new Product(productID, xProductName, xCategoryID, xUnitInStock);
+                x = new Product(productID, xProductName, xCategoryID, xUnitInStock, xImages);
             }
             rs.close();
             ps.close();

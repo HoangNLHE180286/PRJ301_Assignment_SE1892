@@ -5,6 +5,8 @@
 
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Admin
@@ -14,17 +16,19 @@ public class Review {
     public UserAccount userID;
     public Product productID;
     public float rating;
-    public String review;
+    public String comment;
+    public Date reviewDate;
     
     // constructor
     public Review() {
     }
 
-    public Review(UserAccount userID, Product productID, float rating, String review) {
+    public Review(UserAccount userID, Product productID, float rating, String comment, Date reviewDate) {
         this.userID = userID;
         this.productID = productID;
         this.rating = rating;
-        this.review = review;
+        this.comment = comment;
+        this.reviewDate = reviewDate;
     }
     
     // getters
@@ -40,8 +44,12 @@ public class Review {
         return rating;
     }
 
-    public String getReview() {
-        return review;
+    public String getComment() {
+        return comment;
+    }
+
+    public Date getReviewDate() {
+        return reviewDate;
     }
     
     // setters
@@ -57,10 +65,13 @@ public class Review {
         this.rating = rating;
     }
 
-    public void setReview(String review) {
-        this.review = review;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
-    
-    // others
 
+    public void setReviewDate(Date reviewDate) {
+        this.reviewDate = reviewDate;
+    }
+	
+    // others
 }

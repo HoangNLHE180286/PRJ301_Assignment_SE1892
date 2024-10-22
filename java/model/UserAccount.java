@@ -16,6 +16,7 @@ public class UserAccount {
     public int userID;
     public String username;
     public String password;
+    public String role;
     public String email;
     public Date createDate;
     public String phone;
@@ -31,6 +32,7 @@ public class UserAccount {
         this.email = email;
         this.createDate = createDate;
         this.phone = phone;
+        this.role = "User";
     }
 
     // getters
@@ -57,7 +59,11 @@ public class UserAccount {
     public String getPhone() {
         return phone;
     }
-    
+
+    public String getRole() {
+        return role;
+    }
+            
     // setters
     public void setUserID(int userID) {
         this.userID = userID;
@@ -83,6 +89,9 @@ public class UserAccount {
         this.phone = phone;
     }
     
+    public void setRole(String role) {
+        this.role = role;
+    }
+	
     // others
-
 }

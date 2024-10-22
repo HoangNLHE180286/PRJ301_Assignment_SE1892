@@ -13,8 +13,7 @@ import java.util.Date;
  */
 public class Payment {
     // attributes / fields
-    public String paymentID;
-    public UserAccount userID;
+    public String orderID;
     public String paymentMethod;
     public Date paymentDate;
     public double price;
@@ -23,23 +22,19 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(String paymentID, UserAccount userID, String paymentMethod, Date paymentDate, double price) {
-        this.paymentID = paymentID;
-        this.userID = userID;
+    public Payment(String orderID, String paymentMethod, Date paymentDate, double price) {
+        this.orderID = orderID;
         this.paymentMethod = paymentMethod;
         this.paymentDate = paymentDate;
         this.price = price;
     }
     
     // getters
-    public String getPaymentID() {
-        return paymentID;
-    }
 
-    public UserAccount getUserID() {
-        return userID;
+    public String getOrderID() {
+        return orderID;
     }
-
+    
     public String getPaymentMethod() {
         return paymentMethod;
     }
@@ -53,12 +48,9 @@ public class Payment {
     }
     
     // setters
-    public void setPaymentID(String paymentID) {
-        this.paymentID = paymentID;
-    }
 
-    public void setUserID(UserAccount userID) {
-        this.userID = userID;
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
 
     public void setPaymentMethod(String paymentMethod) {
