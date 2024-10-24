@@ -19,7 +19,7 @@ GO
 -- 1
 CREATE TABLE UserAccounts(
 UserID INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
-Username NVARCHAR(60) NOT NULL,
+Username NVARCHAR(60) NOT NULL UNIQUE,
 [Password] NVARCHAR(20) NOT NULL,
 [Role] NVARCHAR(15) NOT NULL, 
 Email NVARCHAR(200) NOT NULL CHECK (Email LIKE '%@%.%'),
@@ -42,17 +42,19 @@ ProductID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 ProductName NVARCHAR(300) NOT NULL,
 CategoryID INT FOREIGN KEY REFERENCES Categories(CategoryID) ON DELETE CASCADE,
 UnitsInStock INT NOT NULL,
+UnitPrice DECIMAL(10, 3),
 Images NVARCHAR(300) DEFAULT NULL
 );
 GO
 
 -- 4
 CREATE TABLE Orders(
+ID INT IDENTITY(1,1),
 OrderID NVARCHAR (10) NOT NULL PRIMARY KEY,
 UserID INT NOT NULL FOREIGN KEY REFERENCES UserAccounts(UserID) ON DELETE CASCADE,
-OrderDate DATETIME,
+OrderDate DATETIME DEFAULT CURRENT_TIMESTAMP,
 Freight MONEY,
-RequiredDate DATETIME
+RequiredDate DATETIME DEFAULT DATEADD(DAY, 7, CURRENT_TIMESTAMP)
 );
 GO
 
@@ -71,7 +73,6 @@ CREATE TABLE OrderDetails(
 OrderID NVARCHAR (10) NOT NULL,
 ProductID INT NOT NULL,
 Quantity INT,
-UnitPrice DECIMAL(10, 3),
 Discount REAL,
 PRIMARY KEY (OrderID, ProductID),
 FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE,
@@ -93,12 +94,14 @@ GO
 -- Function
 CREATE VIEW CalPriceInPayments
 AS
-SELECT p.PaymentID, SUM((od.Quantity * od.UnitPrice)*(1-od.Discount)) + o.Freight AS TotalPrice
+SELECT p.PaymentID, SUM((od.Quantity * pd.UnitPrice)*(1-od.Discount)) + o.Freight AS TotalPrice
 FROM Payments AS p
 INNER JOIN Orders AS o
 ON p.OrderID = o.OrderID
 INNER JOIN OrderDetails AS od
 ON od.OrderID = o.OrderID
+INNER JOIN Products AS pd
+ON pd.ProductID = od.ProductID
 GROUP BY p.PaymentID, o.Freight;
 GO
 
