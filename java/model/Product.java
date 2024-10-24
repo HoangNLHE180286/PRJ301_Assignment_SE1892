@@ -15,17 +15,19 @@ public class Product {
     public String productName;
     public Category categoryID;
     public int unitInStock;
+    public double unitPrice;
     public String images;
     
     // constructor
     public Product() {
     }
 
-    public Product(int productID, String productName, Category categoryID, int unitInStock, String images) {
+    public Product(int productID, String productName, Category categoryID, int unitInStock, double unitPrice, String images) {
         this.productID = productID;
         this.productName = productName;
         this.categoryID = categoryID;
         this.unitInStock = unitInStock;
+        this.unitPrice = unitPrice;
         this.images = images;
     }
 
@@ -44,6 +46,10 @@ public class Product {
 
     public int getUnitInStock() {
         return unitInStock;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
     }
 
     public String getImages() {
@@ -65,6 +71,10 @@ public class Product {
 
     public void setUnitInStock(int unitInStock) {
         this.unitInStock = unitInStock;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
     
     public void setImages(String images) {

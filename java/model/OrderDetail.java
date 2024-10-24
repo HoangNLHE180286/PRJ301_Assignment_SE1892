@@ -14,18 +14,16 @@ public class OrderDetail {
     public Order orderID;    
     public Product productID;    
     public int quantity;    
-    public double unitPrice;    
     public double discount;
     
     // constructor
     public OrderDetail() {
     }
 
-    public OrderDetail(Order orderID, Product productID, int quantity, double unitPrice, double discount) {
+    public OrderDetail(Order orderID, Product productID, int quantity, double discount) {
         this.orderID = orderID;
         this.productID = productID;
         this.quantity = quantity;
-        this.unitPrice = unitPrice;
         this.discount = discount;
     }
     
@@ -40,10 +38,6 @@ public class OrderDetail {
 
     public int getQuantity() {
         return quantity;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
     }
 
     public double getDiscount() {
@@ -61,10 +55,6 @@ public class OrderDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
     }
 
     public void setDiscount(double discount) {

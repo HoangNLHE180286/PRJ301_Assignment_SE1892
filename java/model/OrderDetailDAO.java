@@ -12,43 +12,42 @@ import java.util.*;
  */
 public class OrderDetailDAO extends MyDAO {
 
-    public List<OrderDetail> getOrderDetailList(String orderID) {
-        List<OrderDetail> l = new ArrayList<OrderDetail>();
-        xSql = "select * from OrderDetails where OrderID = ?";
-
-        try {
-            ps = con.prepareStatement(xSql);
-            ps.setString(1, orderID);
-            rs = ps.executeQuery();
-
-            Order xOrderID;
-            Product xProductID;
-            int xQuantity;
-            double xUnitPrice;
-            double xDiscount;
-            OrderDetail x;
-
-            while (rs.next()) {
-                OrderDAO od = new OrderDAO();
-                xOrderID = od.getOrderByID(rs.getString("OrderID"));
-                ProductDAO pd = new ProductDAO();
-                xProductID = pd.getProductByID(rs.getInt("ProductID"));
-                xQuantity = rs.getInt("Quantity");
-                xUnitPrice = rs.getDouble("UnitPrice");
-                xDiscount = rs.getDouble("Discount");
-
-                x = new OrderDetail(xOrderID, xProductID, xQuantity, xUnitPrice, xDiscount);
-            }
-            rs.close();
-            ps.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return (l);
-    }
+//    public List<OrderDetail> getOrderDetailList(String orderID) {
+//        List<OrderDetail> l = new ArrayList<OrderDetail>();
+//        xSql = "select * from OrderDetails where OrderID = ?";
+//
+//        try {
+//            ps = con.prepareStatement(xSql);
+//            ps.setString(1, orderID);
+//            rs = ps.executeQuery();
+//
+//            Order xOrderID;
+//            Product xProductID;
+//            int xQuantity;
+//            double xDiscount;
+//            OrderDetail x;
+//
+//            while (rs.next()) {
+//                OrderDAO od = new OrderDAO();
+//                xOrderID = od.getOrderByID(rs.getString("OrderID"));
+//                ProductDAO pd = new ProductDAO();
+//                xProductID = pd.getProductByID(rs.getInt("ProductID"));
+//                xQuantity = rs.getInt("Quantity");
+//                xDiscount = rs.getDouble("Discount");
+//
+//                x = new OrderDetail(xOrderID, xProductID, xQuantity, xDiscount);
+//                l.add(x);
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return (l);
+//    }
     
     public void insertOrderDetail(OrderDetail x) {
-        xSql = "insert into OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Discount) values (?, ?, ?, ?, ?)";
+        xSql = "insert into OrderDetails (OrderID, ProductID, Quantity, Discount) values (?, ?, ?, ?)";
         
         String orderID = x.getOrderID().getOrderID();
         int productID = x.getProductID().getProductID();
@@ -58,8 +57,7 @@ public class OrderDetailDAO extends MyDAO {
             ps.setString(1, orderID);
             ps.setInt(2, productID);
             ps.setInt(3, x.getQuantity());
-            ps.setDouble(4, x.getUnitPrice());
-            ps.setDouble(5, x.getDiscount());
+            ps.setDouble(4, x.getDiscount());
 
             ps.executeUpdate();
 

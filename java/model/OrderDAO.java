@@ -35,6 +35,7 @@ public class OrderDAO extends MyDAO {
                 xFreight = rs.getDouble("Freight");                
 
                 x = new Order(xOrderID, xUserID , xOrderDate, xRequiredDate, xFreight);
+                l.add(x);
             }
 
             rs.close();
@@ -45,7 +46,8 @@ public class OrderDAO extends MyDAO {
         return (l);
     }
     
-     public Order getOrderByID(String orderID) {
+     public Order getOrderLastID() {
+         String xOrderID;
         Date xOrderDate;
         UserAccount xUserID;
         Date xRequiredDate;
@@ -53,19 +55,19 @@ public class OrderDAO extends MyDAO {
         Payment xPaymentID;
         Order x = new Order();
         UserAccountDAO uad = new UserAccountDAO();
-        xSql = "select * from Orders where OrderID = ?";
+        xSql = "select * from Orders where OrderID = 'ORD_' + CAST((ID-1) AS NVARCHAR)";
 
         try {
             ps = con.prepareStatement(xSql);
-            ps.setString(1, orderID);
             rs = ps.executeQuery();
             while (rs.next()) {
+                xOrderID = rs.getString("OrderID");
                 xOrderDate = rs.getDate("OrderDate");
                 xUserID = uad.getUserAccountByID(rs.getInt("UserID"));
                 xRequiredDate = rs.getDate("RequiredDate");
                 xFreight = rs.getDouble("Freight");
 
-                x = new Order(orderID, xUserID, xOrderDate, xRequiredDate, xFreight);
+                x = new Order(xOrderID, xUserID, xOrderDate, xRequiredDate, xFreight);
             }
             rs.close();
             ps.close();
@@ -75,19 +77,14 @@ public class OrderDAO extends MyDAO {
         return (x);
     }
     
-    public void insertOrder(Order x) {
-        xSql = "insert into Orders (OrderID, UserID, OrderDate, Freight, RequiredDate) values (?, ?, ?, ?, ?)";
+    public void insertOrder(int userID, double freight) {
+        xSql = "insert into Orders (OrderID, UserID, Freight) values ('ORD_' + CAST(ID AS NVARCHAR), ?, ?)";
         
-        java.sql.Date od = (java.sql.Date) x.getOrderDate();
-        java.sql.Date rd = (java.sql.Date) x.getRequiredDate();
-        int userID = x.getUserID().getUserID();
+        
         try {
             ps = con.prepareStatement(xSql);
-            ps.setString(1, x.getOrderID());
-            ps.setInt(2, userID);
-            ps.setDate(3, od);
-            ps.setDouble(4, x.getFreight());
-            ps.setDate(5, rd);
+            ps.setInt(1, userID);
+            ps.setDouble(2, freight);
 
             ps.executeUpdate();
 
@@ -95,6 +92,8 @@ public class OrderDAO extends MyDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
     }
 
     public void deleteOrder(int userID, String OrderID) {

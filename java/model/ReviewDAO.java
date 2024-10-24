@@ -37,6 +37,7 @@ public class ReviewDAO extends MyDAO {
                 xReviewDate = rs.getDate("ReviewDate");
 
                 x = new Review(xUserID, xProductID, xRating, xComment, xReviewDate);
+                l.add(x);
             }
 
             rs.close();
